@@ -1,0 +1,18 @@
+---
+title: "Communication Load"
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file. -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "vignettes/img/",
+  out.width = "100%"
+)
+```
+
+
+Extremely simple [Shiny](https://shiny.rstudio.com/) app to demonstrate how it affects a team when you add people.
