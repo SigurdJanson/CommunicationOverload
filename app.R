@@ -2,12 +2,16 @@
 
 library(shiny)
 library(igraph)
+library(ggplot2)
+library(ggrepel)
 library(bslib)
 library(thematic)
+library(ragg)
 
 thematic::thematic_shiny(font = "auto")
-
-
+.PrimaryCol = "#df691a"
+.FGCol = "#F3FBF9"
+.BGCol = "#092B36"
 
 #' PathsOfTalk
 #' Returns the number of communication paths in a team with the given
@@ -45,8 +49,9 @@ ProductiveTimeLeft <- function(People, ComPercentage) {
 
 #
 ui <- fluidPage(
-  theme = bs_theme(bootswatch = "superhero", fg = "rgb(251, 249, 243)", bg = "rgb(9, 43, 54)",
-                   font_scale = NULL, `enable-rounded` = FALSE),
+  theme = bs_theme(bootswatch = "superhero", fg = .FGCol, bg = .BGCol,
+                   font_scale = NULL, `enable-rounded` = FALSE, primary = .PrimaryCol,
+                   base_font = bslib::font_google("Inter")),
   # Application title
   titlePanel("Team Communication"),
 
@@ -91,7 +96,8 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output) {
-  #bs_themer()
+  bs_themer()
+
 
   output$comCount <- renderText({
     Members <- (input$inpTeamMembers-1):(input$inpTeamMembers+1)
@@ -110,23 +116,38 @@ server <- function(input, output) {
     edges <- combn(nodes, 2)
 
     ## Formatting
-    PrimaryColor <- bs_get_variables(bs_theme(), "primary")
     graph <- make_graph( edges=edges, directed=FALSE ) %>%
-      set_vertex_attr(name = "shape", value = "square") %>%
-      set_vertex_attr(name = "color", value = PrimaryColor) %>%
-      set_vertex_attr("label", value = rep("", input$inpTeamMembers)) %>%
-      set_graph_attr("shape", "rectangle")
+      set_vertex_attr("label", value = rep("", input$inpTeamMembers))
     layout <- layout_in_circle(graph, order = V(graph))
 
     ## PLOT
-    plot(graph, layout=layout) # not ring shaped - nodes in the middle
+    plot(graph, layout=layout,
+         vertex.size = 10, color = .PrimaryCol,
+         vertex.frame.width = 1,
+         vertex.shape = "circle", frame = TRUE)
   })
+
+
 
   output$outProductiveTime <- renderPlot({
     MemberCount <- 2:15
     Waste <- input$inpCommunctionWaste / 100
     ProductiveTime <- ProductiveTimeLeft(MemberCount, Waste)
-    plot(MemberCount, ProductiveTime)
+
+    ggplot(data.frame(Members = MemberCount, ProductiveTime = ProductiveTime),
+           aes(x = Members, y = ProductiveTime, label = ProductiveTime)) +
+      geom_line() + geom_point() +
+      ggrepel::geom_text_repel() +
+      geom_vline(xintercept = input$inpTeamMembers, color = .PrimaryCol) +
+      theme(axis.text.y   = element_text(size=12),
+            axis.text.x   = element_text(size=12),
+            axis.title.y  = element_text(size=14),
+            axis.title.x  = element_text(size=14),
+            panel.background = element_blank(),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            axis.line = element_line(colour=.FGCol),
+            panel.border = element_rect(colour=.FGCol, fill=NA, size=1))
   })
 }
 
