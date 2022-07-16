@@ -16,7 +16,7 @@ library(igraph)
 #' PathsOfTalk(3:5)
 #' #> [1]  3  6 10
 PathsOfTalk <- function(People) {
-  stopifnot(all(People > 2))
+  stopifnot(all(People > 1))
   People * (People-1) / 2
 }
 
@@ -42,7 +42,7 @@ ProductiveTimeLeft <- function(People, ComPercentage) {
 ui <- fluidPage(
 
     # Application title
-    titlePanel("Communication"),
+    titlePanel("Team Communication"),
 
     # Sidebar with a slider input for number of team members
     sidebarLayout(
@@ -50,7 +50,11 @@ ui <- fluidPage(
             sliderInput("inpTeamMembers",
                         "People on the Team",
                         min = 2, max = 50,
-                        value = 30),
+                        value = 10),
+            sliderInput("inpCommunctionWaste",
+                        "Average percentage of time lost due to ineffective communication per team member",
+                        min = 0, max = 5, step = 0.1,
+                        value = 1, post = "%"),
             textOutput("comCount"),
             textOutput("comRelative"),
             hr(),
@@ -63,8 +67,8 @@ ui <- fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("comPlot", height = "600px"),
-           plotOutput("outProductiveTime", height = "600px")
+           plotOutput("comPlot", height = "500px"),
+           plotOutput("outProductiveTime", height = "500px")
         )
     )
 )
@@ -86,7 +90,7 @@ server <- function(input, output) {
   })
 
   output$comPlot <- renderPlot({
-    nodes <- 1:input$inpTeamMembers #letters[1:input$inpTeamMembers]
+    nodes <- 1:input$inpTeamMembers
     edges <- combn(nodes, 2)
     graph <- make_graph( edges=edges, directed=FALSE ) %>%
       set_vertex_attr(name = "shape", value = "square") %>%
@@ -97,7 +101,8 @@ server <- function(input, output) {
 
   output$outProductiveTime <- renderPlot({
     MemberCount <- 2:15
-    ProductiveTime <- ProductiveTimeLeft(MemberCount, 0.05)
+    Waste <- input$inpCommunctionWaste / 100
+    ProductiveTime <- ProductiveTimeLeft(MemberCount, Waste)
     plot(MemberCount, ProductiveTime)
   })
 }
