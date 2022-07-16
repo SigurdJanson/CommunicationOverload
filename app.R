@@ -2,6 +2,11 @@
 
 library(shiny)
 library(igraph)
+library(bslib)
+library(thematic)
+
+thematic::thematic_shiny(font = "auto")
+
 
 
 #' PathsOfTalk
@@ -40,7 +45,8 @@ ProductiveTimeLeft <- function(People, ComPercentage) {
 
 #
 ui <- fluidPage(
-
+  theme = bs_theme(bootswatch = "superhero", fg = "rgb(251, 249, 243)", bg = "rgb(9, 43, 54)",
+                   font_scale = NULL, `enable-rounded` = FALSE),
     # Application title
     titlePanel("Team Communication"),
 
@@ -75,7 +81,7 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output) {
-
+  #bs_themer()
 
   output$comCount <- renderText({
     Members <- (input$inpTeamMembers-1):(input$inpTeamMembers+1)
