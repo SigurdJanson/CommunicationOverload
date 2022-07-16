@@ -47,36 +47,46 @@ ProductiveTimeLeft <- function(People, ComPercentage) {
 ui <- fluidPage(
   theme = bs_theme(bootswatch = "superhero", fg = "rgb(251, 249, 243)", bg = "rgb(9, 43, 54)",
                    font_scale = NULL, `enable-rounded` = FALSE),
-    # Application title
-    titlePanel("Team Communication"),
+  # Application title
+  titlePanel("Team Communication"),
 
-    # Sidebar with a slider input for number of team members
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("inpTeamMembers",
-                        "People on the Team",
-                        min = 2, max = 50,
-                        value = 10),
-            sliderInput("inpCommunctionWaste",
-                        "Average percentage of time lost due to ineffective communication per team member",
-                        min = 0, max = 5, step = 0.1,
-                        value = 1, post = "%"),
-            textOutput("comCount"),
-            textOutput("comRelative"),
-            hr(),
-            p("Please note: The link between team communication and
-              performance seems to be stronger when you focus on the
-              quality, rather than the quantity of communication."),
-            p("Brooks, F. P. (1995).", strong("'The Mythical Man Month'"), ". Addison-Wesley"),
-            p("Marlow, S. L., Lacerenza, C. N., Paoletti, J., Burke, C. S., & Salas, E. (2018). 'Does team communication represent a one-size-fits-all approach?: A meta-analysis of team communication and performance'. Organizational Behavior and Human Decision Processes, 144, 145-170.")
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("comPlot", height = "500px"),
-           plotOutput("outProductiveTime", height = "500px")
-        )
+  # Sidebar with a slider input for number of team members
+  wellPanel(
+  fluidRow(
+         column(3,
+           sliderInput("inpTeamMembers",
+                       "People on the Team",
+                       min = 2, max = 50, value = 10),
+           textOutput("comCount"),
+           textOutput("comRelative"),
+         ),
+         column(6,
+           # Show a plot of the generated distribution
+           plotOutput("comPlot", height = "500px")
+         ),
+         column(3L,
+                hr(),
+                p("Please note: The link between team communication and
+                performance seems to be stronger when you focus on the
+                quality, rather than the quantity of communication."),
+                p("Brooks, F. P. (1995).", strong("'The Mythical Man Month'"), ". Addison-Wesley"),
+                p("Marlow, S. L., Lacerenza, C. N., Paoletti, J., Burke, C. S., & Salas, E. (2018). 'Does team communication represent a one-size-fits-all approach?: A meta-analysis of team communication and performance'. Organizational Behavior and Human Decision Processes, 144, 145-170."),
+         )
+  )),
+  #div(class="well", style="display:inline-block; width: 100%",
+  wellPanel(
+      fluidRow(
+         column(3L,
+                sliderInput("inpCommunctionWaste",
+                            "Average percentage of time lost due to ineffective communication per team member",
+                            min = 0, max = 5, step = 0.1,
+                            value = 1, post = "%")),
+         column(6L,
+                plotOutput("outProductiveTime", height = "500px")
+         ),
+         column(3L)
     )
+  )
 )
 
 # Define server logic
@@ -98,10 +108,17 @@ server <- function(input, output) {
   output$comPlot <- renderPlot({
     nodes <- 1:input$inpTeamMembers
     edges <- combn(nodes, 2)
+
+    ## Formatting
+    PrimaryColor <- bs_get_variables(bs_theme(), "primary")
     graph <- make_graph( edges=edges, directed=FALSE ) %>%
       set_vertex_attr(name = "shape", value = "square") %>%
-      set_vertex_attr(name = "color", value = "blue")
+      set_vertex_attr(name = "color", value = PrimaryColor) %>%
+      set_vertex_attr("label", value = rep("", input$inpTeamMembers)) %>%
+      set_graph_attr("shape", "rectangle")
     layout <- layout_in_circle(graph, order = V(graph))
+
+    ## PLOT
     plot(graph, layout=layout) # not ring shaped - nodes in the middle
   })
 
