@@ -4,7 +4,19 @@ library(shiny)
 library(igraph)
 
 
+#' PathsOfTalk
+#' Returns the number of communication paths in a team with the given
+#' number of team members.
+#' @param People The number of people on the team
+#' @details The result represents the un-directed node edges of a graph
+#' connecting all elements with each other.
+#' @return Number of communication paths within the team
+#' @references Brooks, F. P. (1995). 'The Mythical Man Month'. Addison-Wesley
+#' @examples
+#' PathsOfTalk(3:5)
+#' #> [1]  3  6 10
 PathsOfTalk <- function(People) {
+  stopifnot(all(People > 2))
   People * (People-1) / 2
 }
 
@@ -15,9 +27,9 @@ PathsOfTalk <- function(People) {
 #' @param ComPercentage Assumed average percentage of each team member to
 #' be spent on communication with other team members that serves the purpose
 #' of relationship maintenance but is not goal-oriented.
-#' @return  (vectorised)
+#' @return The time team members have left to work productively (vectorised)
 #' @examples
-ProductiveTimeLeft <- function(People, ComPercentage) { #, PercentOverlap = 0
+ProductiveTimeLeft <- function(People, ComPercentage) {
   Paths <- PathsOfTalk(People)
   TotalTime <- Paths * ComPercentage
   return(pmax((1-TotalTime) * People, rep(0, length(People))))
@@ -26,7 +38,7 @@ ProductiveTimeLeft <- function(People, ComPercentage) { #, PercentOverlap = 0
 
 
 
-# Define UI for application that draws a histogram
+#
 ui <- fluidPage(
 
     # Application title
@@ -57,7 +69,7 @@ ui <- fluidPage(
     )
 )
 
-# Define server logic required to draw a histogram
+# Define server logic
 server <- function(input, output) {
 
 
