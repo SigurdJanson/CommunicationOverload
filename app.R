@@ -4,25 +4,55 @@ library(shiny)
 library(igraph)
 
 
+PathsOfTalk <- function(People) {
+  People * (People-1) / 2
+}
+
+
+#' ProductiveTimeLeft
+#'
+#' @param People Members on the team
+#' @param ComPercentage Assumed average percentage of each team member to
+#' be spent on communication with other team members that serves the purpose
+#' of relationship maintenance but is not goal-oriented.
+#' @return  (vectorised)
+#' @examples
+ProductiveTimeLeft <- function(People, ComPercentage) { #, PercentOverlap = 0
+  Paths <- PathsOfTalk(People)
+  TotalTime <- Paths * ComPercentage
+  return(pmax((1-TotalTime) * People, rep(0, length(People))))
+}
+
+
+
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(
 
     # Application title
     titlePanel("Communication"),
 
-    # Sidebar with a slider input for number of bins
+    # Sidebar with a slider input for number of team members
     sidebarLayout(
         sidebarPanel(
-            sliderInput("bins",
+            sliderInput("inpTeamMembers",
                         "People on the Team",
                         min = 2, max = 50,
                         value = 30),
-            textOutput("comCount")
+            textOutput("comCount"),
+            textOutput("comRelative"),
+            hr(),
+            p("Please note: The link between team communication and
+              performance seems to be stronger when you focus on the
+              quality, rather than the quantity of communication."),
+            p("Brooks, F. P. (1995).", strong("'The Mythical Man Month'"), ". Addison-Wesley"),
+            p("Marlow, S. L., Lacerenza, C. N., Paoletti, J., Burke, C. S., & Salas, E. (2018). 'Does team communication represent a one-size-fits-all approach?: A meta-analysis of team communication and performance'. Organizational Behavior and Human Decision Processes, 144, 145-170.")
         ),
 
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("comPlot")
+           plotOutput("comPlot", height = "600px"),
+           plotOutput("outProductiveTime", height = "600px")
         )
     )
 )
@@ -30,18 +60,33 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
-  output$comCount <- renderText(input$bins*(input$bins-1) / 2)
+
+  output$comCount <- renderText({
+    Members <- (input$inpTeamMembers-1):(input$inpTeamMembers+1)
+    Paths <- PathsOfTalk(Members)
+    paste("Count:", paste(Paths, collapse = " / "))
+  })
+
+  output$comRelative <- renderText({
+    Members <- (input$inpTeamMembers-1):(input$inpTeamMembers+1)
+    Paths <- PathsOfTalk(Members)
+    paste("Relation:", paste(Paths / Members, collapse = " / "))
+  })
 
   output$comPlot <- renderPlot({
-    nodes <- 1:input$bins #letters[1:input$bins]
-    #edges <- c(nodes[1], rep(nodes[2:(input$bins-1)], each=2), nodes[1])
+    nodes <- 1:input$inpTeamMembers #letters[1:input$inpTeamMembers]
     edges <- combn(nodes, 2)
     graph <- make_graph( edges=edges, directed=FALSE ) %>%
       set_vertex_attr(name = "shape", value = "square") %>%
       set_vertex_attr(name = "color", value = "blue")
     layout <- layout_in_circle(graph, order = V(graph))
     plot(graph, layout=layout) # not ring shaped - nodes in the middle
-    #plot(make_ring(input$bins, directed=FALSE ))
+  })
+
+  output$outProductiveTime <- renderPlot({
+    MemberCount <- 2:15
+    ProductiveTime <- ProductiveTimeLeft(MemberCount, 0.05)
+    plot(MemberCount, ProductiveTime)
   })
 }
 
