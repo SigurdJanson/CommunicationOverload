@@ -113,13 +113,13 @@ ui <- fluidPage(
                 )
          ),
          column(3L, withTags(
-                p(sup("🕂", .noWS = "outside"), small("Such a reduction could be caused by ...",
+                p(sup("🕂", .noWS = "outside"), small("Such a reduction could e.g. be caused by ...",
                   ul(
                     li("an increased difficulty to develop quality relationships,"),
-                    li("unrelated communcation that does not contribute to performance,"),
-                    li("the ", a("Ringelmann Effect",
-                                  href = "https://en.wikipedia.org/w/index.php?title=Ringelmann_effect&oldid=1067453356"))
-                  )
+                    li("unrelated communication that does not contribute to performance,")
+                  ),
+                  "or other factors causing the ", a("Ringelmann Effect",
+                               href = "https://en.wikipedia.org/w/index.php?title=Ringelmann_effect&oldid=1067453356")
                 ))),
                 withTags(
                   p(small("The assumption in this simulation is a linear relationship between the number

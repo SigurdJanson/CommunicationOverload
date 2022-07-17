@@ -7,7 +7,21 @@ Team Communication Load
 Communication is probably the one positive and cohesive force in a team.
 Through the exchange of information the team accomplishes tasks, it
 builds relationships, and establishes roles. Sometimes, however,
-communication can have unwanted side effects.
+communication can have unwanted side effects and reduce the performance
+of a team. That can caused by …
+
+-   Coordination problems, e.g.
+    -   an increased difficulty to develop quality relationships
+    -   or unrelated communication that does not contribute to
+        performance;
+-   Motivation problems, e.g.
+    -   less recognition when other team members get some of the
+        attention,
+    -   less clarity of goals when more people try to influence them,
+    -   or a decreased visibility of free-riding behaviour.
+
+Observations like this are often summarised as the [Ringelmann
+Effect](https://en.wikipedia.org/wiki/Ringelmann_effect).
 
 This simple [Shiny](https://shiny.rstudio.com/) app to demonstrate how
 it affects a team when you add people. This quantitative perspective is
@@ -20,10 +34,14 @@ That people were Lego™ bricks that could be randomly rearranged.
 **Use the simulation of this app to get a glimpse how misleading it can
 be to just look at the number of people in a team.**
 
-## Overview
+You find the app on
+[shinyapps.io](https://js-rapps.shinyapps.io/communicationoverload/).
 
-Screenshot of the App ![Screenshot of the
-App](./vignettes/img/TeamCommunication_Overview.png)
+## App overview
+
+Screenshot of the App [![Screenshot of the
+App](./vignettes/img/TeamCommunication_Overview.png)](https://js-rapps.shinyapps.io/communicationoverload/)
+.
 
 The **top panel** shows [Brooks’
 law](https://en.wikipedia.org/wiki/Brooks%27s_law): the number of
@@ -60,6 +78,13 @@ cannot predict what happens in your team. For two reasons:
     ones. That does not mean that the quantitative approach loses
     meaning. It means, that it may be impossible to observe what this
     app predicts unless you follow a sophisticated scientific approach.
+
+In essence, **the link between team communication and performance seems
+to be stronger when you focus on the quality, rather than the quantity
+of communication**. Yet, it is still essential that quantity does not
+necessarily improve performance and that every change disrupts an
+effective systems causing at least temporary performance losses and
+often also
 
 ## Further reading
 
