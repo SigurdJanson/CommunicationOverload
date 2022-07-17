@@ -1,4 +1,18 @@
 
+#' FormatBib
+#'
+#' @param aut Author (correctly formatted string)
+#' @param title Main title of the article or book
+#' @param year Year
+#' @param publ Publisher (for books)
+#' @param journal Journal
+#' @param issue Journal issue (may be numeric)
+#' @param nr Journal number (may be numeric)
+#' @param pg Pages (correctly formatted string)
+#'
+#' @return A formatted reference as HTML
+#' @examples
+#' FormatBib("Brooks, F. P.", "The Mythical Man Month", 1995, "Addison-Wesley")
 FormatBib <- function(aut, title, year,
                       publ=NULL, journal=NULL, issue=NULL, nr=NULL, pg=NULL) {
 
@@ -12,7 +26,7 @@ FormatBib <- function(aut, title, year,
 
   HTML(
     paste0(
-      "<p>",
+      "<p><small>",
         aut, " (", year, "). ",   # author (year)
         "'<em>", title, "</em>'", # title
         paste0(
@@ -22,7 +36,7 @@ FormatBib <- function(aut, title, year,
           .add(" (", nr, ")"),
           .add(", ", pg)
         ),
-      "</p>"),
+      "</small></p>"),
     .noWS = allWS
   )
 }
