@@ -1,5 +1,4 @@
 #
-
 library(shiny)
 library(igraph)
 library(ggplot2)
@@ -8,10 +7,15 @@ library(bslib)
 library(thematic)
 library(ragg)
 
+# Theming
 thematic::thematic_shiny(font = "auto")
 .PrimaryCol = "#df691a"
 .FGCol = "#F3FBF9"
 .BGCol = "#092B36"
+.MemberRange = c(2, 25)
+
+
+source("./helpers.R")
 
 #' PathsOfTalk
 #' Returns the number of communication paths in a team with the given
@@ -47,7 +51,9 @@ ProductiveTimeLeft <- function(People, ComPercentage) {
 
 
 
-#
+
+
+# UI
 ui <- fluidPage(
   theme = bs_theme(bootswatch = "superhero", fg = .FGCol, bg = .BGCol,
                    font_scale = NULL, `enable-rounded` = FALSE, primary = .PrimaryCol,
@@ -59,9 +65,15 @@ ui <- fluidPage(
   wellPanel(
   fluidRow(
          column(3,
+           h3("Team Relationships"),
+           p("How many relationships between pairs of team members must be
+             maintained depending on the size of the team?
+             Adjust the slider to show this the effect."),
            sliderInput("inpTeamMembers",
                        "People on the Team",
-                       min = 2, max = 50, value = 10),
+                       min = min(.MemberRange),
+                       max = max(.MemberRange),
+                       value = mean(.MemberRange)),
            textOutput("comCount"),
            textOutput("comRelative"),
          ),
@@ -70,18 +82,31 @@ ui <- fluidPage(
            plotOutput("comPlot", height = "500px")
          ),
          column(3L,
-                hr(),
+                p("The number of relationships to maintain in a team
+                  is sometimes called Brookes law (according to Brookes, 1995)"),
                 p("Please note: The link between team communication and
                 performance seems to be stronger when you focus on the
                 quality, rather than the quantity of communication."),
-                p("Brooks, F. P. (1995).", strong("'The Mythical Man Month'"), ". Addison-Wesley"),
-                p("Marlow, S. L., Lacerenza, C. N., Paoletti, J., Burke, C. S., & Salas, E. (2018). 'Does team communication represent a one-size-fits-all approach?: A meta-analysis of team communication and performance'. Organizational Behavior and Human Decision Processes, 144, 145-170."),
+                p("Reading"),
+                FormatBib("Brooks, F. P.", "The Mythical Man Month", 1995, "Addison-Wesley"),
+                FormatBib("Marlow, S. L., Lacerenza, C. N., Paoletti, J., Burke, C. S., & Salas, E.",
+                          "Does team communication represent a one-size-fits-all approach?: A meta-analysis of team communication and performance",
+                          "2018", journal="Organizational Behavior and Human Decision Processes",
+                          issue=144, pg="145-170"),
+                p("Marlow, S. L., Lacerenza, C. N., Paoletti, J., Burke, C. S., & Salas, E. (2018).
+                  'Does team communication represent a one-size-fits-all approach?: A meta-analysis
+                  of team communication and performance'.
+                  Organizational Behavior and Human Decision Processes, 144, 145-170."),
          )
   )),
-  #div(class="well", style="display:inline-block; width: 100%",
+
   wellPanel(
       fluidRow(
          column(3L,
+                h3("Simulation"),
+                p(span(class=".small", "Assumption: there is a small reduction of team performance",
+                       tags$sup("🕂", .noWS = "before"), "caused by each pair of team members.
+                       Adjust the slider to simulate the effect.")),
                 sliderInput("inpCommunctionWaste",
                             "Average percentage of time lost due to ineffective communication per team member",
                             min = 0, max = 5, step = 0.1,
@@ -89,14 +114,25 @@ ui <- fluidPage(
          column(6L,
                 plotOutput("outProductiveTime", height = "500px")
          ),
-         column(3L)
+         column(3L,
+                p(tags$sup("🕂", .noWS = "outside"), "Such a reduction could be because of ...",
+                  tags$ul(
+                    tags$li("an increased difficulty to develop quality relationships,"),
+                    tags$li("unrelated communcation that does not contribute to performance,"),
+                    tags$li("the ", a("Ringelmann Effect",
+                                 href = "https://en.wikipedia.org/w/index.php?title=Ringelmann_effect&oldid=1067453356"))
+                  )
+                ),
+                p("The assumption in this simulation is a linear relationship between the number
+                  of team members and the loss in productivity.")
+         )
     )
   )
 )
 
 # Define server logic
 server <- function(input, output) {
-  bs_themer()
+  #bs_themer()
 
 
   output$comCount <- renderText({
@@ -130,12 +166,12 @@ server <- function(input, output) {
 
 
   output$outProductiveTime <- renderPlot({
-    MemberCount <- 2:15
+    MemberCount <- min(.MemberRange):max(.MemberRange)
     Waste <- input$inpCommunctionWaste / 100
     ProductiveTime <- ProductiveTimeLeft(MemberCount, Waste)
 
     ggplot(data.frame(Members = MemberCount, ProductiveTime = ProductiveTime),
-           aes(x = Members, y = ProductiveTime, label = ProductiveTime)) +
+           aes(x = Members, y = ProductiveTime, label = format(ProductiveTime))) +
       geom_line() + geom_point() +
       ggrepel::geom_text_repel() +
       geom_vline(xintercept = input$inpTeamMembers, color = .PrimaryCol) +
@@ -150,6 +186,8 @@ server <- function(input, output) {
             panel.border = element_rect(colour=.FGCol, fill=NA, size=1))
   })
 }
+
+
 
 # Run the application
 shinyApp(ui = ui, server = server)
