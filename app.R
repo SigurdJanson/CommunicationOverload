@@ -2,7 +2,7 @@
 library(shiny)
 library(igraph)
 library(ggplot2)
-library(ggrepel)
+#library(ggrepel)
 library(bslib)
 library(thematic)
 library(ragg)
