@@ -6,9 +6,11 @@ library(ggplot2)
 library(bslib)
 library(thematic)
 library(ragg)
+library(showtext)
 
 # Theming
 thematic::thematic_shiny(font = "auto")
+ggplot2::theme_set(ggplot2::theme_minimal())
 .PrimaryCol = "#df691a"
 .FGCol = "#F3FBF9"
 .BGCol = "#092B36"
@@ -44,8 +46,8 @@ PathsOfTalk <- function(People) {
 #' @examples
 ProductiveTimeLeft <- function(People, ComPercentage) {
   Paths <- PathsOfTalk(People)
-  TotalTime <- Paths * ComPercentage
-  return(pmax((1-TotalTime) * People, rep(0, length(People))))
+  TotalLoss <- Paths * ComPercentage
+  return(People - TotalLoss) #pmax(, rep(0, length(People))))
 }
 
 
@@ -105,8 +107,8 @@ ui <- fluidPage(
                        Adjust the slider to simulate the effect.")),
                 sliderInput("inpCommunctionWaste",
                             "Average percentage of time lost due to ineffective communication per team member",
-                            min = 0, max = 5, step = 0.1,
-                            value = 1, post = "%")),
+                            min = 0, max = 25, step = 1,
+                            value = 10, post = "%")),
          column(6L,
                 div(style=paste0("border: 1px solid ", .FGCol),
                   plotOutput("outProductiveTime")
@@ -173,11 +175,17 @@ server <- function(input, output) {
     Waste <- input$inpCommunctionWaste / 100
     ProductiveTime <- ProductiveTimeLeft(MemberCount, Waste)
 
-    ggplot(data.frame(Members = MemberCount, ProductiveTime = ProductiveTime*100),
-           aes(x = Members, y = ProductiveTime, label = format(ProductiveTime))) +
+    dt <- data.frame(Members = MemberCount, ProductiveTime = ProductiveTime*100)
+    ggplot(dt, aes(x = Members, y = ProductiveTime, label = format(ProductiveTime))) +
       geom_line() + geom_point() +
-      #ggrepel::geom_text_repel() +
+      # ggrepel::geom_text_repel() +
       geom_vline(xintercept = input$inpTeamMembers, color = .PrimaryCol) +
+      geom_hline(yintercept = 0, color = .FGCol) +
+      # annotate(geom = "rect",
+      #          xmin=min(dt$Members), xmax=max(dt$Members),
+      #          ymin=min(dt$ProductiveTime, 0), ymax=0,
+      #          alpha = .2, fill = .BGCol, colour = "transparent") +
+      labs(x = "Team Members", y = "Total Productive Time (%)") +
       theme(axis.text.y   = element_text(size=12),
             axis.text.x   = element_text(size=12),
             axis.title.y  = element_text(size=14),
@@ -185,6 +193,7 @@ server <- function(input, output) {
             panel.background = element_blank(),
             panel.grid.major = element_blank(),
             panel.grid.minor = element_blank(),
+            plot.margin=margin(1,1,0.75,0.75, "cm"),
             panel.border = element_rect(colour=NA, fill=NA, size=1),
             axis.line = element_line(colour=.FGCol))
   })
