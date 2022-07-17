@@ -1,5 +1,5 @@
 ---
-title: "Communication Load"
+title: "Team Communication Load"
 output: github_document
 date: "`r Sys.Date()`"
 
@@ -21,10 +21,13 @@ knitr::opts_chunk$set(
 )
 ```
 
+Communication is probably the one positive and cohesive force in a team. Through the exchange of information the team accomplishes tasks, it builds relationships, and establishes roles. Sometimes, however, communication can have unwanted side effects.
 
-Simple [Shiny](https://shiny.rstudio.com/) app to demonstrate how it affects a team when you add people. This quantitative perspective is inspired by Brooks (1995) and various posts on the net. Though a quantitative view only tells a part of the story the misunderstandings about team performance usually start there. "How many people do I need to ...?" To some degree there lurks an assumption behind that question. That people were Lego™ bricks that could be randomly rearranged. 
+This simple [Shiny](https://shiny.rstudio.com/) app to demonstrate how it affects a team when you add people. This quantitative perspective is inspired by Brooks (1995) and various posts on the net. Though a quantitative view only tells a part of the story the misunderstandings about team performance usually start there. "How many people do I need to ...?" To some degree there lurks an assumption behind that question. That people were Lego™ bricks that could be randomly rearranged. 
 
 **Use the simulation of this app to get a glimpse how misleading it can be to just look at the number of people in a team.**
+
+
 
 ## Overview
 

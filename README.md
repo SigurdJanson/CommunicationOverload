@@ -1,11 +1,16 @@
-Communication Load
+Team Communication Load
 ================
 2022-07-17
 
 <!-- README.md is generated from README.Rmd. Please edit that file. -->
 
-Simple [Shiny](https://shiny.rstudio.com/) app to demonstrate how it
-affects a team when you add people. This quantitative perspective is
+Communication is probably the one positive and cohesive force in a team.
+Through the exchange of information the team accomplishes tasks, it
+builds relationships, and establishes roles. Sometimes, however,
+communication can have unwanted side effects.
+
+This simple [Shiny](https://shiny.rstudio.com/) app to demonstrate how
+it affects a team when you add people. This quantitative perspective is
 inspired by Brooks (1995) and various posts on the net. Though a
 quantitative view only tells a part of the story the misunderstandings
 about team performance usually start there. “How many people do I need
