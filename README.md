@@ -34,8 +34,11 @@ That people were Lego™ bricks that could be randomly rearranged.
 **Use the simulation of this app to get a glimpse how misleading it can
 be to just look at the number of people in a team.**
 
-You find the app on
-[shinyapps.io](https://js-rapps.shinyapps.io/communicationoverload/).
+The code for the app is hosted
+[here](https://github.com/SigurdJanson/CommunicationOverload) on
+[GitHub](https://github.com). You can also find a [live-version of the
+app on
+shinyapps.io](https://js-rapps.shinyapps.io/communicationoverload/).
 
 ## App overview
 
@@ -84,7 +87,7 @@ to be stronger when you focus on the quality, rather than the quantity
 of communication**. Yet, it is still essential that quantity does not
 necessarily improve performance and that every change disrupts an
 effective systems causing at least temporary performance losses and
-often also
+maybe also a long-term decrease of cost-benefit ratio.
 
 ## Further reading
 
