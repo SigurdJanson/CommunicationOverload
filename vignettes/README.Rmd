@@ -37,7 +37,7 @@ This simple [Shiny](https://shiny.rstudio.com/) app to demonstrate how it affect
 
 **Use the simulation of this app to get a glimpse how misleading it can be to just look at the number of people in a team.**
 
-You find the app on [shinyapps.io](https://js-rapps.shinyapps.io/communicationoverload/).
+The code for the app is hosted [here](https://github.com/SigurdJanson/CommunicationOverload) on [GitHub](https://github.com). You can also find a [live-version of the app on shinyapps.io](https://js-rapps.shinyapps.io/communicationoverload/).
 
 
 ## App overview
