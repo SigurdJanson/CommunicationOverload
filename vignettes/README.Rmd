@@ -1,8 +1,10 @@
 ---
 title: "Team Communication Load"
+bibliography: CommunicationOverload.bib
 output: github_document
 date: "`r Sys.Date()`"
-
+nocite: |
+  @Marlow2018
 knit: (function(inputFile, encoding) {
       out_dir <- "../";
       rmarkdown::render(inputFile,
@@ -68,7 +70,7 @@ In essence, **the link between team communication and performance seems to be st
 
 ## Further reading
 
-Brooks, F. (1995). [*The mythical man-month: essays on software engineering*](https://en.wikipedia.org/wiki/The_Mythical_Man-Month) (Anniversary ed.). Addison-Wesley.
+<div id="refs"></div>
 
-Marlow, S., Lacerenza, C., Paoletti, J., Burke, C., & Salas, E. (2018). [*Does team communication represent a one-size-fits-all approach?: A meta-analysis of team communication and performance*](https://www.sciencedirect.com/science/article/abs/pii/S074959781630125X). Organizational Behavior and Human Decision Processes, 144, 145–170. https://doi.org/10.1016/j.obhdp.2017.08.001
+
 
