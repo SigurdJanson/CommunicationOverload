@@ -47,7 +47,7 @@ PathsOfTalk <- function(People) {
 ProductiveTimeLeft <- function(People, ComPercentage) {
   Paths <- PathsOfTalk(People)
   TotalLoss <- Paths * ComPercentage
-  return(People - TotalLoss) #pmax(, rep(0, length(People))))
+  return(pmax.int(People - TotalLoss, 0))
 }
 
 
