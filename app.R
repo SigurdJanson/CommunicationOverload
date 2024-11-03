@@ -200,16 +200,38 @@ server <- function(input, output) {
   # Plot for Productivity
   #
   output$outProductiveTime <- renderPlot({
+    CurrentMembers <- input$inpTeamMembers
+    CurrentIndex <- CurrentMembers - 1# TODO: why `-1`? # + min(.MemberRange)
+
     MemberCount <- min(.MemberRange):max(.MemberRange)
     Waste <- input$inpCommunctionWaste / 100
     ProductiveTime <- ProductiveTimeLeft(MemberCount, Waste)
 
+    #-LabelThreshold <- max(ProductiveTime) * 0.9 # direction of value label
+    RelPos <- ProductiveTime[CurrentIndex] / max(ProductiveTime)
+    if (RelPos >= 0.84) {
+      LabelDir <- "inward"
+      LabelNudge <- -max(ProductiveTime)*16 # *0.2 * 100
+    } else  if (RelPos <= 0.2 ) {
+      print("<0.1")
+      LabelDir <- "inward"
+      LabelNudge <- max(ProductiveTime)*16 # *0.2 * 100
+    } else {
+      print("Else")
+      LabelDir <- "top"
+      LabelNudge <- max(ProductiveTime)*16 # *0.2 * 100
+    }
+
     dt <- data.frame(Members = MemberCount, ProductiveTime = ProductiveTime*100)
     ggplot(dt, aes(x = Members, y = ProductiveTime, label = format(ProductiveTime))) +
       geom_line() + geom_point() +
-      # ggrepel::geom_text_repel() +
-      geom_vline(xintercept = input$inpTeamMembers, color = .PrimaryCol) +
+      geom_vline(linewidth = 1, xintercept = input$inpTeamMembers, color = .PrimaryCol) +
       geom_hline(yintercept = 0, color = .FGCol) +
+      geom_label(data = dt[CurrentIndex,],
+                aes(label = round(ProductiveTime, 0), fontface = "bold", size = 12),
+                color = "#FFFFFF", alpha=1, fill = .PrimaryCol,
+                hjust = "center", nudge_y = LabelNudge, #vjust = LabelDir,
+                show.legend = FALSE) +
       # annotate(geom = "rect",
       #          xmin=min(dt$Members), xmax=max(dt$Members),
       #          ymin=min(dt$ProductiveTime, 0), ymax=0,
