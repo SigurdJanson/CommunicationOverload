@@ -66,24 +66,29 @@ ui <- fluidPage(
   # Sidebar with a slider input for number of team members
   wellPanel(
   fluidRow(
-         column(3,
+         column(3L,
            h3("Team Relationships"),
            p("How many relationships between pairs of team members must be
-             maintained depending on the size of the team? According to Brookes (1995)
-             sometimes called Brookes law.
-             Adjust the slider to show this the effect."),
+             maintained depending on the size of the team? This is sometimes
+             referred to as Brooks law (Brooks, 1995).", br(),
+             "Adjust the slider to show it."),
            sliderInput("inpTeamMembers",
                        "People on the Team",
                        min = min(.MemberRange),
                        max = max(.MemberRange),
-                       value = 8L),
-           textOutput("comCount")
+                       value = 8L)
          ),
-         column(6,
-           # Show a plot of the generated distribution
-           div(style=paste0("border: 1px solid ", .FGCol),
-            plotOutput("comPlot")
-           )
+         column(2L,
+                # Show a plot of the pairwise relationships
+                div(style=paste0("border: 1px solid ", .FGCol),
+                    plotOutput("comPlot"),
+                )
+         ),
+         column(4L,
+                # Show a plot of the generated distribution
+                div(style=paste0("border: 1px solid ", .FGCol),
+                    plotOutput("relationshipsPlot")
+                )
          ),
          column(3L,
                 p("Please note: The link between team communication and
@@ -101,7 +106,7 @@ ui <- fluidPage(
   wellPanel(
       fluidRow(
          column(3L,
-                h3("Simulation"),
+                h3("Productive Time"),
                 p(span(class=".small", "Assumption: there is a small reduction of team performance",
                        tags$sup("🕂", .noWS = "before"), "caused by each pair of team members.
                        Adjust the slider to simulate the effect.")),
@@ -134,8 +139,7 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output) {
-  #bs_themer()
-
+  Relationships <- seq.int(.MemberRange[1], .MemberRange[2L]) * (seq.int(.MemberRange[1], .MemberRange[2L])-1) / 2
 
   output$comCount <- renderText({
     Members <- input$inpTeamMembers
@@ -164,6 +168,31 @@ server <- function(input, output) {
          vertex.frame.width = 0,
          vertex.shape = "circle", frame = FALSE)
     par(par.backup)
+  })
+
+
+  #
+  # Plot the number of relationships based in team members
+  #
+  output$relationshipsPlot <- renderPlot({
+    dt <- data.frame(Members = seq.int(.MemberRange[1], .MemberRange[2L]),
+                     Relations = Relationships)
+
+    ggplot(dt, aes(x = Members, y = Relationships, label = format(Relationships))) +
+      geom_line() + geom_point() +
+      geom_vline(xintercept = input$inpTeamMembers, color = .PrimaryCol) +
+      geom_hline(yintercept = 0, color = .FGCol) +
+      labs(x = "Team Members", y = "Relationships") +
+      theme(axis.text.y   = element_text(size=12),
+            axis.text.x   = element_text(size=12),
+            axis.title.y  = element_text(size=14),
+            axis.title.x  = element_text(size=14),
+            panel.background = element_blank(),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            plot.margin=margin(1,1,0.75,0.75, "cm"),
+            panel.border = element_rect(colour=NA, fill=NA, size=1),
+            axis.line = element_line(colour=.FGCol))
   })
 
 
