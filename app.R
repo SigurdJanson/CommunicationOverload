@@ -91,9 +91,6 @@ ui <- fluidPage(
                 )
          ),
          column(3L,
-                p("Please note: The link between team communication and
-                performance seems to be stronger when you focus on the
-                quality, rather than the quantity of communication."),
                 h6("Further Reading"),
                 FormatBib("Brooks, F. P.", "The Mythical Man Month", 1995, "Addison-Wesley"),
                 FormatBib("Marlow, S. L., Lacerenza, C. N., Paoletti, J., Burke, C. S., & Salas, E.",
