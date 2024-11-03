@@ -191,7 +191,7 @@ server <- function(input, output) {
             panel.grid.major = element_blank(),
             panel.grid.minor = element_blank(),
             plot.margin=margin(1,1,0.75,0.75, "cm"),
-            panel.border = element_rect(colour=NA, fill=NA, size=1),
+            panel.border = element_rect(colour=NA, fill=NA, linewidth=1),
             axis.line = element_line(colour=.FGCol))
   })
 
