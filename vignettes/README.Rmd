@@ -35,7 +35,7 @@ Communication is probably the one positive and cohesive force in a team. Through
   
 Observations like this are often summarised as the [Ringelmann Effect](https://en.wikipedia.org/wiki/Ringelmann_effect).
 
-This simple [Shiny](https://shiny.rstudio.com/) app to demonstrate how it affects a team when you add people. This quantitative perspective is inspired by Brooks (1995) and various posts on the net. Though a quantitative view only tells a part of the story the misunderstandings about team performance usually start there. "How many people do I need to ...?" To some degree there lurks an assumption behind that question. That people were Lego™ bricks that could be randomly rearranged. 
+This simple [Shiny](https://shiny.rstudio.com/) app to demonstrate how it affects a team when you add people. This quantitative perspective is inspired by @Brooks1995 and various posts on the net. Though a quantitative view only tells a part of the story the misunderstandings about team performance usually start there. "How many people do I need to ...?" To some degree there lurks an assumption behind that question. That people were Lego™ bricks that could be randomly rearranged. 
 
 **Use the simulation of this app to get a glimpse how misleading it can be to just look at the number of people in a team.**
 
@@ -54,17 +54,65 @@ with `M` being the number of team members. The chart visualises the relationship
 The **bottom panel** simulates a possible negative effects it may have to add team members. Instead of an increase in performance it may very well happen that performance decreases. Adjust the slider to get a feeling for this.
 
 
-
 ## What does the simulation mean?
 
-**What it can do**. This app illustrates basic relationships between team size and performance. It can be used to instill awareness and teach about the topic.
+**What it can do**. This app illustrates a basic relationship between team size and performance. It can be used to instil awareness and teach about the topic:
 
-**What it cannot do**. Please note that Brooks' law and the simulation cannot predict what happens in your team. For two reasons:
+> There is no linear relationship between team size and output.
 
-* The assumed "mechanics" in the team may be very different in your case. The simulation makes assumptions to **illustrate a basic principle**. It does not make a specific prediction.
+**What it cannot do**. Please note that Brooks' law and the simulation cannot predict what happens in your team. @Brooks1995 himself stated that the law was "outrageously simplified" [@Brooks1995, chapter 19]. For two reasons:
+
+* The assumed dynamics in the team may be very different in your case. The simulation makes assumptions to illustrate a basic principle. It does not make a specific prediction, because - aside from team size - there is a large number of factors that affect team performance.
+
 * The quantitative view on the team does not say anything about the **quality of communication**. That is more important than the quantity. Quantitative effects may be superimposed by qualitative ones. That does not mean that the quantitative approach loses meaning. It means, that it may be impossible to observe what this app predicts unless you follow a sophisticated scientific approach.
 
-In essence, **the link between team communication and performance seems to be stronger when you focus on the quality, rather than the quantity of communication**. Yet, it is still essential that quantity does not necessarily improve performance and that every change disrupts an effective systems causing at least temporary performance losses and maybe also a long-term decrease of cost-benefit ratio.
+In essence, the link between team communication and performance seems to be stronger when you focus on the quality, rather than the quantity of communication. Yet, it is still essential that quantity does not necessarily improve performance and that every change disrupts an effective systems causing at least temporary performance losses and maybe also a long-term decrease of cost-benefit ratio.
+
+Despite these limitations, we can still use the assumptions behind Brooks Law and convert them into a tool. That is what the next section is about.
+
+
+
+## How productive is my team?
+
+Would it not be fantastic to have a formula for that? Unfortunately, we do not. The relationships are convoluted. The law is based on several limiting assumptions:
+
+1. Time is only one factor for productivity. An important one, for sure. But there are other factors, as well. Such factors are clarity of roles, work speed, experience of team members, degree of specialisation in the team, cultural diversity, type of task, ... the list goes on.
+
+2. Also noteworthy is the fact that team performance must not only be understood in terms of output volume. Quality is essential, too.
+
+3. In teams, there is necessary unproductive time and then there is wasted time. 
+   a. Teams need to maintain internal and external social relationships, rules and routines. If this is neglected, it can have a negative impact on productivity. The best example is retrospective meetings in Scrum. Their purpose is to identify obstacles, eliminate time wasters and misunderstandings and ensure quality standards. This time is unproductive in a sense that it does not directly contribute to the output, but if we ignore this, team performance will suffer.
+   a. Additionally, there is wasted time. Inviting someone to a meeting to which they cannot contribute. The quest to exceed necessary quality standards, striving for a more elegant solution that does not help the business. Department meetings filled with information employees cannot relate to. These are common examples. Wasted time can be eliminated. You can find the most obvious cases of wasted time by simply asking around.
+   
+4. Putting the above together many teams benefit greatly when they develop the ability to recover fast after making a mistake. How fast can the team identify the mistake and fix it? How does it affect recovery time when the mistake is identified later rather than sooner?
+
+5. As outlined above, some unproductive time is required to boost productivity in the remaining time. Do not remove everything that does not directly support productivity. A team needs to maintain itself.
+
+6. The law reduces team dynamics to pairwise relationships. If there was a problem, then Tom talks to Deborah, Deborah talks to Maria, and Maria talks to Tom. This way we have three conversations, each of them takes - let us say - 10 minutes. But what if the three come together and talk together? The threewise conversation may take longer then a pairwise one but it should be briefer than 30 minutes.
+
+
+
+How productive a team is depends on many factors.
+
+* Self-organising teams may need more time. In self-organisation some aspects that make the team are left to the team to work out by itself. That takes time. The idea is that self-organisation can lead to more effective team *in the long run*. Teams are not necessarily more effective in the sort run and teams are not necessarily more efficient. At least Scrum consistently highlights quality over quantity. [LIT]
+* Let us not forget that it changes over time. A newly assembled team needs extra time. And every time the team setup changes, the team may need to renegotiate some rules. Even if the team configuration changes only for a few weeks (vacations, e.g.), the team may need to re-negotiate a few things.
+* Meeting lateness alone can have a considerable impact. In the study by @Rogelberg2013 1/3 of the meetings did not start at the appointed time. Apart from numerous side effects, that can be a considerable loss of time.
+
+
+Here are a few pointers:
+
+* In one study, @Elsayed-Elkhouly1997 found that executives spend 30% of their time in meetings and 35% of it can be considered wasted. That makes around 10% of wasted time.
+* In a scrum process the official recommendations for scrum meetings sum up to a percentage between `r ((20*0.25 + 1*8 + 0.5*8 + 3) )/(20*8) * 100`% and `r ((20*0.25 + 1*8 + 0.5*8 + 3 + 16) )/(20*8) * 100`% (incl. refinement meetings) [@Overeem2018; @Schwaber2020]. In my opinion, the real percentage is most likely lower, because to a degree these meetings serve productive purposes, as well, especially refinement and planning meetings.
+
+The most important pointer that I can give you is your team colleagues' satisfaction on the job. If you want to know about inefficiencies, just talk to them. 
+
+
+
+## Making tools out of flaws
+
+* Provide spaces to go "meta".
+
+
 
 
 
