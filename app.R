@@ -64,72 +64,93 @@ ui <- fluidPage(
   titlePanel("Team Communication"),
 
   # Sidebar with a slider input for number of team members
-  wellPanel(
-  fluidRow(
-         column(3L,
-           h3("Team Relationships"),
-           p("How many relationships between pairs of team members must be
+  layout_columns(
+    div(
+      h3("Team Relationships"),
+      p("How many relationships between pairs of team members must be
              maintained depending on the size of the team? This is sometimes
              referred to as Brooks law (Brooks, 1995).", br(),
-             "Adjust the slider to show it."),
-           sliderInput("inpTeamMembers",
-                       "People on the Team",
-                       min = min(.MemberRange),
-                       max = max(.MemberRange),
-                       value = 8L)
-         ),
-         column(2L,
-                # Show a plot of the pairwise relationships
-                div(style=paste0("border: 1px solid ", .FGCol),
-                    plotOutput("comPlot"),
-                )
-         ),
-         column(4L,
-                # Show a plot of the generated distribution
-                div(style=paste0("border: 1px solid ", .FGCol),
-                    plotOutput("relationshipsPlot")
-                )
-         ),
-         column(3L,
-                h6("Further Reading"),
-                FormatBib("Brooks, F. P.", "The Mythical Man Month", 1995, "Addison-Wesley"),
-                FormatBib("Marlow, S. L., Lacerenza, C. N., Paoletti, J., Burke, C. S., & Salas, E.",
-                          "Does team communication represent a one-size-fits-all approach?: A meta-analysis of team communication and performance",
-                          "2018", journal="Organizational Behavior and Human Decision Processes",
-                          issue=144, pg="145-170")
-         )
-  )),
+        "Adjust the slider to show it."),
+      sliderInput("inpTeamMembers",
+                  "People on the Team",
+                  min = min(.MemberRange),
+                  max = max(.MemberRange),
+                  value = 8L)
+    ),
+    div(
+      # Show a plot of the pairwise relationships
+      div(style=paste0("border: 1px solid ", .FGCol),
+          plotOutput("comPlot"),
+      )
+    ),
+    div(
+      # Show a plot of the generated distribution
+      div(style=paste0("border: 1px solid ", .FGCol),
+          plotOutput("relationshipsPlot")
+      )
+    ),
 
-  wellPanel(
-      fluidRow(
-         column(3L,
-                h3("Productive Time"),
-                p(span(class=".small", "Assumption: there is a small reduction of team performance",
-                       tags$sup("🕂", .noWS = "before"), "caused by each pair of team members.
-                       Adjust the slider to simulate the effect.")),
-                sliderInput("inpCommunctionWaste",
-                            "Average percentage of time lost due to ineffective communication per team member",
-                            min = 0, max = 25, step = 1,
-                            value = 10, post = "%")),
-         column(6L,
-                div(style=paste0("border: 1px solid ", .FGCol),
-                  plotOutput("outProductiveTime")
-                )
-         ),
-         column(3L, withTags(
-                p(sup("🕂", .noWS = "outside"), small("Such a reduction could e.g. be caused by ...",
-                  ul(
-                    li("an increased difficulty to develop quality relationships,"),
-                    li("unrelated communication that does not contribute to performance,")
-                  ),
-                  "or other factors causing the ", a("Ringelmann Effect",
-                               href = "https://en.wikipedia.org/w/index.php?title=Ringelmann_effect&oldid=1067453356")
-                ))),
-                withTags(
-                  p(small("The assumption in this simulation is a linear relationship between the number
+    div(
+      h3("Productive Time"),
+      p(span(class=".small", "Assumption: there is a small reduction of team performance",
+             tags$sup("🕂", .noWS = "before"), "caused by each pair of team members.
+                   Adjust the slider to simulate the effect.")),
+      sliderInput("inpCommunctionWaste",
+                  "Average percentage of time lost due to ineffective communication per team member",
+                  min = 0, max = 25, step = 1,
+                  value = 10, post = "%"),
+      withTags(small("Such a reduction could e.g. be caused by ...",
+        ul(
+        li("an increased difficulty to develop quality relationships,"),
+        li("unrelated communication that does not contribute to performance,")
+        ),
+        "or other factors causing the ", a("Ringelmann Effect",
+                href = "https://en.wikipedia.org/w/index.php?title=Ringelmann_effect&oldid=1067453356")
+        )),
+      withTags(
+        p(small("The assumption in this simulation is a linear relationship between the number
                     of team members and the loss in productivity."))
-                )
-         )
+      )),
+    div(
+      div(style=paste0("border: 1px solid ", .FGCol),
+          plotOutput("outProductiveTime")
+      )
+    ),
+    div(
+      h3("Further Reading"),
+      layout_columns(
+        # card(
+        #   FormatBib("Brooks, F. P.", "The Mythical Man Month", 1995, "Addison-Wesley")
+        # ),
+        card(
+          FormatBib("Brooks, F. P.", "The Mythical Man Month", 1995, "Addison-Wesley"),
+          card_footer(
+            class = "fs-6",
+            tags$a(shiny::icon("wikipedia-w"), "Wikipedia", href="https://en.wikipedia.org/wiki/The_Mythical_Man-Month"),
+            "✴",
+            tags$a(shiny::icon("landmark"), "Internet Archive", href="https://archive.org/details/MythicalManMonth")
+          )
+        ),
+        card(
+          FormatBib("Marlow, S. L., Lacerenza, C. N., Paoletti, J., Burke, C. S., & Salas, E.",
+                    "Does team communication represent a one-size-fits-all approach?: A meta-analysis of team communication and performance",
+                    "2018", journal="Organizational Behavior and Human Decision Processes",
+                    issue=144, pg="145-170"),
+          card_footer(
+            class = "fs-6", tags$a(shiny::icon("newspaper"), "doi", href="https://doi.org/10.1016/j.obhdp.2017.08.001")
+          )
+        ),
+        col_widths = breakpoints(
+          sm = 12,
+          md = 6,
+          lg = 6
+        )
+      )
+    ),
+    col_widths = breakpoints(
+      sm = 12,
+      md = c(12, 4, 8, 4, 8, 12),
+      lg = c(-1, 3, 2, 5, -1, -1, 3, 7, -1, -1, 10, -1)
     )
   )
 )
@@ -204,7 +225,6 @@ server <- function(input, output) {
     Waste <- input$inpCommunctionWaste / 100
     ProductiveTime <- ProductiveTimeLeft(MemberCount, Waste)
 
-    #-LabelThreshold <- max(ProductiveTime) * 0.9 # direction of value label
     RelPos <- ProductiveTime[CurrentIndex] / max(ProductiveTime)
     if (RelPos >= 0.84) {
       LabelDir <- "inward"
@@ -220,7 +240,7 @@ server <- function(input, output) {
     }
     MaxPos <- which(ProductiveTime == max(ProductiveTime))[1L]
     Direction <- switch (sign(CurrentIndex - MaxPos)+2,
-      "🡅", "⯁", "🡇"
+                         "🡅", "⯁", "🡇"
     )
 
     dt <- data.frame(Members = MemberCount, ProductiveTime = ProductiveTime*100)
@@ -229,14 +249,10 @@ server <- function(input, output) {
       geom_vline(linewidth = 1, xintercept = input$inpTeamMembers, color = .PrimaryCol) +
       geom_hline(yintercept = 0, color = .FGCol) +
       geom_label(data = dt[CurrentIndex,],
-                aes(label = paste(round(ProductiveTime, 0), Direction), fontface = "bold", size = 20),
-                color = "#FFFFFF", alpha=1, fill = .PrimaryCol,
-                hjust = "center", nudge_y = LabelNudge, #vjust = LabelDir,
-                show.legend = FALSE) +
-      # annotate(geom = "rect",
-      #          xmin=min(dt$Members), xmax=max(dt$Members),
-      #          ymin=min(dt$ProductiveTime, 0), ymax=0,
-      #          alpha = .2, fill = .BGCol, colour = "transparent") +
+                 aes(label = paste(round(ProductiveTime, 0), Direction), fontface = "bold", size = 20),
+                 color = "#FFFFFF", alpha=1, fill = .PrimaryCol,
+                 hjust = "center", nudge_y = LabelNudge,
+                 show.legend = FALSE) +
       labs(x = "Team Members", y = "Total Productive Time (%)") +
       theme(axis.text.y   = element_text(size=12),
             axis.text.x   = element_text(size=12),
