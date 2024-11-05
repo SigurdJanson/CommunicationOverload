@@ -97,8 +97,7 @@ ui <- fluidPage(
     div(
       h3("Productive Time"),
       p(span(class=".small", "Assumption: there is a small reduction of team performance",
-             tags$sup("🕂", .noWS = "before"), "caused by each pair of team members.
-                   Adjust the slider to simulate the effect.")),
+             "caused by each pair of team members. Adjust the slider to simulate the effect.")),
       sliderInput("inpCommunctionWaste",
                   "Average percentage of time lost due to ineffective communication per team member",
                   min = 0, max = 25, step = 1,
