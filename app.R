@@ -254,10 +254,12 @@ server <- function(input, output) {
       LabelDir <- "top"
       LabelNudge <- max(ProductiveTime)*16 # *0.2 * 100
     }
-    MaxPos <- which(ProductiveTime == max(ProductiveTime))[1L]
-    Direction <- switch (sign(CurrentIndex - MaxPos)+2,
-                         "🡅", "⯁", "🡇"
-    )
+    MaxPos <- which(ProductiveTime == max(ProductiveTime))
+    if (CurrentIndex %in% MaxPos) {
+      Direction <- "⯁"
+    } else {
+      Direction <- switch(sign(CurrentIndex - MaxPos[1])+2, "🡅", "⯁", "🡇")
+    }
 
     dt <- data.frame(Members = MemberCount, ProductiveTime = ProductiveTime*100)
     ggplot(dt, aes(x = Members, y = ProductiveTime, label = format(ProductiveTime))) +
@@ -265,7 +267,7 @@ server <- function(input, output) {
       geom_vline(linewidth = 1, xintercept = input$inpTeamMembers, color = .PrimaryCol) +
       geom_hline(yintercept = 0, color = .FGCol) +
       geom_label(data = dt[CurrentIndex,],
-                 aes(label = paste(round(ProductiveTime, 0), Direction), fontface = "bold", size = 20),
+                 aes(label = sprintf("%3.0f %s", ProductiveTime, Direction), fontface = "bold", size = 20),
                  color = "#FFFFFF", alpha=1, fill = .PrimaryCol,
                  hjust = "center", nudge_y = LabelNudge,
                  show.legend = FALSE) +
