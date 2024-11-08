@@ -246,11 +246,9 @@ server <- function(input, output) {
       LabelDir <- "inward"
       LabelNudge <- -max(ProductiveTime)*16 # *0.2 * 100
     } else  if (RelPos <= 0.2 ) {
-      print("<0.1")
       LabelDir <- "inward"
       LabelNudge <- max(ProductiveTime)*16 # *0.2 * 100
     } else {
-      print("Else")
       LabelDir <- "top"
       LabelNudge <- max(ProductiveTime)*16 # *0.2 * 100
     }
