@@ -64,62 +64,73 @@ ui <- fluidPage(
     `card-bg` = "rgba(243, 251, 249, .02)", `card-cap-bg` = "rgba(243, 251, 249, .02)",
     .where = "declarations"),
 
-  # Application title
-  titlePanel("Team Communication"),
 
   # Sidebar with a slider input for number of team members
   layout_columns(
-    div(
-      h3("Team Relationships"),
-      p("How many relationships between pairs of team members must be
-             maintained depending on the size of the team? This is sometimes
-             referred to as Brooks law (Brooks, 1995).", br(),
-        "Adjust the slider to show it."),
-      sliderInput("inpTeamMembers",
-                  "People on the Team",
-                  min = min(.MemberRange),
-                  max = max(.MemberRange),
-                  value = 8L)
-    ),
-    div(
-      # Show a plot of the pairwise relationships
-      div(style=paste0("border: 1px solid ", .FGCol),
-          plotOutput("comPlot"),
-      )
-    ),
-    div(
-      # Show a plot of the generated distribution
-      div(style=paste0("border: 1px solid ", .FGCol),
-          plotOutput("relationshipsPlot")
-      )
-    ),
+    # Application title
+    titlePanel("Team Communication"),
 
-    div(
-      h3("Productive Time"),
-      p(span(class=".small", "Assumption: there is a small reduction of team performance",
-             "caused by each pair of team members. Adjust the slider to simulate the effect.")),
-      sliderInput("inpCommunctionWaste",
-                  "Average percentage of time lost due to ineffective communication per team member",
-                  min = 0, max = 25, step = 1,
-                  value = 10, post = "%"),
-      withTags(small("Such a reduction could e.g. be caused by ...",
-        ul(
-        li("an increased difficulty to develop quality relationships,"),
-        li("unrelated communication that does not contribute to performance,")
-        ),
-        "or other factors causing the ", a("Ringelmann Effect",
-                href = "https://en.wikipedia.org/w/index.php?title=Ringelmann_effect&oldid=1067453356")
+    layout_columns(class="well",
+      div(
+        h3("Pairwise Relationships"),
+        p("How many relationships between pairs of team members must be
+               maintained depending on the size of the team? This is sometimes
+               referred to as Brooks law (Brooks, 1995).", br(),
+          "Adjust the slider to show it."),
+        sliderInput("inpTeamMembers",
+                    "People on the Team",
+                    min = min(.MemberRange), max = max(.MemberRange),
+                    value = 8L, step = 1L,
+                    width = "100%")
+      ),
+      div(
+        # Show a plot of the pairwise relationships
+        div(style=paste0("border: 1px solid ", .FGCol),
+            plotOutput("comPlot"),
+        )
+      ),
+      div(
+        # Show a plot of the generated distribution
+        div(style=paste0("border: 1px solid ", .FGCol),
+            plotOutput("relationshipsPlot")
+        )
+      ),
+
+      div(
+        h3("Productive Time"),
+        p(span(class=".small", "Assumption: there is a small reduction of team performance",
+               "caused by each pair of team members. Adjust the slider to simulate the effect.")),
+        sliderInput("inpCommunctionWaste",
+                    "Average percentage of time lost due to ineffective communication per team member",
+                    min = 0L, max = 25L, step = 1L,
+                    value = 10L, post = "%",
+                    width = "100%"),
+        withTags(small("Such a reduction could e.g. be caused by ...",
+          ul(
+          li("an increased difficulty to develop quality relationships,"),
+          li("unrelated communication that does not contribute to performance,")
+          ),
+          "or other factors causing the ", a("Ringelmann Effect",
+                  href = "https://en.wikipedia.org/w/index.php?title=Ringelmann_effect&oldid=1067453356")
+          )),
+        withTags(
+          p(small("The assumption in this simulation is a linear relationship between the number
+                      of team members and the loss in productivity."))
         )),
-      withTags(
-        p(small("The assumption in this simulation is a linear relationship between the number
-                    of team members and the loss in productivity."))
-      )),
-    div(
-      div(style=paste0("border: 1px solid ", .FGCol),
-          plotOutput("outProductiveTime")
+      div(
+        div(style=paste0("border: 1px solid ", .FGCol),
+            plotOutput("outProductiveTime")
+        )
+      ),
+      col_widths = breakpoints(
+        sm = 12,
+        md = c(12, 4, 8,
+               4,  8),
+        lg = c(4, 2, 6,
+               4, 8) #
       )
     ),
-    div(
+    wellPanel(
       h3("Further Reading"),
       layout_columns(
         # card(
@@ -152,8 +163,10 @@ ui <- fluidPage(
     ),
     col_widths = breakpoints(
       sm = 12,
-      md = c(12, 4, 8, 4, 8, 12),
-      lg = c(-1, 3, 2, 5, -1, -1, 3, 7, -1, -1, 10, -1)
+      md = c(12, 12, 12),
+      lg = c(-1, 10, -1, # title
+             -1, 10, -1
+             -1, 10, -1) # references
     )
   )
 )
