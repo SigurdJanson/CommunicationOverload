@@ -1,5 +1,5 @@
 ---
-title: "Team Communication Load"
+title: "The Surprising Math of Team Performance"
 bibliography: CommunicationOverload.bib
 csl: APA7.csl
 output: github_document
@@ -24,70 +24,60 @@ knitr::opts_chunk$set(
 )
 ```
 
-Communication is probably the one positive and cohesive force in a team. Through the exchange of information the team accomplishes tasks, it builds relationships, and establishes roles. Sometimes, however, communication can have unwanted side effects and reduce the performance of a team. That can caused by ...
 
-* Coordination problems, e.g.
-  * an increased difficulty to develop quality relationships
-  * or unrelated communication that does not contribute to performance;
-* Motivation problems, e.g.
-  * less recognition when other team members get some of the attention,
-  * less clarity of goals when more people try to influence them,
-  * or a decreased visibility of free-riding behaviour.
-  
-Observations like this are often summarised as the [Ringelmann Effect](https://en.wikipedia.org/wiki/Ringelmann_effect).
-
-This simple [Shiny](https://shiny.rstudio.com/) app to demonstrate how it affects a team when you add people. This quantitative perspective is inspired by @Brooks1995 and various posts on the net. Though a quantitative view only tells a part of the story the misunderstandings about team performance usually start there. "How many people do I need to ...?" To some degree there lurks an assumption behind that question. That people were Lego™ bricks that could be randomly rearranged. 
-
-**Use the simulation of this app to get a glimpse how misleading it can be to just look at the number of people in a team.**
-
-The code for the app is hosted [here](https://github.com/SigurdJanson/CommunicationOverload) on [GitHub](https://github.com). You can also find a [live-version of the app on shinyapps.io](https://js-rapps.shinyapps.io/communicationoverload/).
+Communication is arguably the most cohesive force within a team. By exchanging information, team members build relationships, establish roles, and achieve goals. Yet, communication can also have unintended negative effects, sometimes reducing team performance. This can result from issues like...
 
 
-## App overview
+-   Coordination issues, such as:
+    -   Challenges in building quality relationships
+    -   Distractions from unrelated communication;
+-   Motivational issues, such as:
+    -   Reduced individual recognition as attention is divided
+    - Goal ambiguity when too many people are involved in decisions
+    - Decreased visibility of free-riding behaviour.
 
-Screenshot of the App [![Screenshot of the App](./vignettes/img/TeamCommunication_Overview.png)](https://js-rapps.shinyapps.io/communicationoverload/) .
+These types of issues are commonly described as the [Ringelmann Effect](https://en.wikipedia.org/wiki/Ringelmann_effect) [@Kravitz1986], where overall group performance ends up being less than the sum of individual contributions.
 
-The **top panel** shows [Brooks' law](https://en.wikipedia.org/wiki/Brooks%27s_law): the number of relationships a team has to establish and maintain depending on the number of team members. Brooks' law computes the number of relationships `R` as
+A simple [Shiny](https://shiny.rstudio.com/) app helps illustrate how adding people to a team can affect its performance. This quantitative perspective, inspired by @Brooks1995 and other sources, highlights where misunderstandings about team performance often begin. Many ask, "How many people do I need to...?" assuming that adding people is as simple as stacking Lego™ bricks.
 
-$$ R = \frac{M * (M-1)}{2} $$
-with `M` being the number of team members. The chart visualises the relationships. Each dot is a team member connected to all the other team members.
+**Explore this app’s simulation to see how focusing only on team size can be misleading.**
 
-The **bottom panel** simulates a possible negative effects it may have to add team members. Instead of an increase in performance it may very well happen that performance decreases. Adjust the slider to get a feeling for this.
+The app's code is available [here](https://github.com/SigurdJanson/CommunicationOverload) on [GitHub](https://github.com), and a [live-version of the app on shinyapps.io](https://js-rapps.shinyapps.io/communicationoverload/).
 
 
-## What does the simulation mean?
 
-**What it can do**. This app illustrates a basic relationship between team size and performance. It can be used to instil awareness and teach about the topic:
+## Overview of the App
+
+Below is a screenshot of the app interface: [![Screenshot of the App](./vignettes/img/TeamCommunication_Overview.png)](https://js-rapps.shinyapps.io/communicationoverload/)
+
+The **top panel** illustrates [Brooks' law](https://en.wikipedia.org/wiki/Brooks%27s_law), showing the increasing number of relationships a team must maintain as its size grows. According to Brooks’ Law, the number of relationships `R` is calculated as 
+
+$$ R = \frac{M * (M-1)}{2} $$ where `M` is the number of team members. The chart visualizes this: each dot represents a team member linked to all other members.
+
+The **bottom panel** simulates potential negative effects of increasing team size. Contrary to expectations, adding more members may decrease overall performance. Adjust the slider to explore this dynamic.
+
+**Choosing the Right Numbers**. This simulation’s purpose is not to find an exact team size but to explore a range and understand performance shifts. Consider these findings for context:
+
+- In one study, @Elsayed-Elkhouly1997 found that executives spend about 30% of their time in meetings, with 35% of that time considered “wasted.” This translates to roughly 10% wasted time overall—a factor to consider in any team.
+
+- In a scrum process, recommended scrum meeting times amount to `r ((20*0.25 + 1*8 + 0.5*8 + 3) )/(20*8) * 100`–`r ((20*0.25 + 1*8 + 0.5*8 + 3 + 16) )/(20*8) * 100`% of working hours (including refinement meetings) [@Overeem2018; @Schwaber2020]. However, real usage may be lower, as planning and refinement often serve productive purposes besides planning.
+
+- Recommendations for team size in software projects generally fall between 5–9 members. @Olivares2024 suggest 5–9, while @Rodriguez2012 notes performance declines when team size exceeds 9. Assuming this guideline optimizes for peak performance, then % lost would be estimated at 12–24%, with peak productivity typically seen at 5–9 members.
+
+
+
+## Interpreting the Simulation
+
+This app provides a simplified way to explore the relationship between team size and performance, offering insights that can raise awareness on the topic:
 
 > There is no linear relationship between team size and output.
 
-**What it cannot do**. Please note that Brooks' law and the simulation cannot predict what happens in your team. @Brooks1995 himself stated that the law was "outrageously simplified" [@Brooks1995, chapter 19]. For two reasons:
+Team performance does not simply grow with each new member added. In fact, there may be a tipping point where adding another member even decreases overall performance.
 
-* The assumed dynamics in the team may be very different in your case. The simulation makes assumptions to illustrate a basic principle. It does not make a specific prediction, because - aside from team size - there is a large number of factors that affect team performance.
-
-* The quantitative view on the team does not say anything about the **quality of communication**. That is more important than the quantity. Quantitative effects may be superimposed by qualitative ones. That does not mean that the quantitative approach loses meaning. It means, that it may be impossible to observe what this app predicts unless you follow a sophisticated scientific approach.
-
-In essence, the link between team communication and performance seems to be stronger when you focus on the quality, rather than the quantity of communication. Yet, it is still essential that quantity does not necessarily improve performance and that every change disrupts an effective systems causing at least temporary performance losses and maybe also a long-term decrease of cost-benefit ratio.
-
-Despite these limitations, we can still use the assumptions behind Brooks Law and convert them into a tool. That is what the next section is about.
+**Limitations**. Brooks’ Law and the simulation cannot predict specific outcomes for every team. Even @Brooks1995 cautioned that this model is "outrageously simplified" [@Brooks1995, chapter 19]. Team performance involves complex interactions and cannot be captured in precise figures. Even if we were able to quantify each of the numerous variables (which we never can) the relationships between those variables are complex and convoluted. However, by examining team dynamics closely, we can draw valuable insights for decision-making and identify best practices in team management. Continue reading.
 
 
 
-## How productive is my team?
-
-Would it not be fantastic to have a formula for that? Unfortunately, we do not. The relationships are convoluted. The law is based on several limiting assumptions:
-
-1. Time is only one factor for productivity. An important one, for sure. But there are other factors, as well. Such factors are clarity of roles, work speed, experience of team members, degree of specialisation in the team, cultural diversity, type of task, ... the list goes on.
-
-2. Also noteworthy is the fact that team performance must not only be understood in terms of output volume. Quality is essential, too.
-
-3. In teams, there is necessary unproductive time and then there is wasted time. 
-   a. Teams need to maintain internal and external social relationships, rules and routines. If this is neglected, it can have a negative impact on productivity. The best example is retrospective meetings in Scrum. Their purpose is to identify obstacles, eliminate time wasters and misunderstandings and ensure quality standards. This time is unproductive in a sense that it does not directly contribute to the output, but if we ignore this, team performance will suffer.
-   a. Additionally, there is wasted time. Inviting someone to a meeting to which they cannot contribute. The quest to exceed necessary quality standards, striving for a more elegant solution that does not help the business. Department meetings filled with information employees cannot relate to. These are common examples. Wasted time can be eliminated. You can find the most obvious cases of wasted time by simply asking around.
-   
-4. Putting the above together many teams benefit greatly when they develop the ability to recover fast after making a mistake. How fast can the team identify the mistake and fix it? How does it affect recovery time when the mistake is identified later rather than sooner?
-
-5. As outlined above, some unproductive time is required to boost productivity in the remaining time. Do not remove everything that does not directly support productivity. A team needs to maintain itself.
 
 6. The law reduces team dynamics to pairwise relationships. If there was a problem, then Tom talks to Deborah, Deborah talks to Maria, and Maria talks to Tom. This way we have three conversations, each of them takes - let us say - 10 minutes. But what if the three come together and talk together? The threewise conversation may take longer then a pairwise one but it should be briefer than 30 minutes.
 
