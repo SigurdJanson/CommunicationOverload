@@ -1,6 +1,7 @@
 ---
 title: "Team Communication Load"
 bibliography: CommunicationOverload.bib
+csl: APA7.csl
 output: github_document
 date: "`r Sys.Date()`"
 nocite: |
