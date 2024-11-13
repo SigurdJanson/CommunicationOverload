@@ -133,9 +133,15 @@ ui <- fluidPage(
     wellPanel(
       h3("Further Reading"),
       layout_columns(
-        # card(
-        #   FormatBib("Brooks, F. P.", "The Mythical Man Month", 1995, "Addison-Wesley")
-        # ),
+        card(
+          FormatBib("Seifert, J.", "The Surprising Math of Team Performance", 2024, "Blog at medium.com"),
+          card_footer(
+            class = "fs-6",
+            tags$a(shiny::icon("medium"), "Medium", href="https://medium.com/@jan.seifert/the-surprising-math-of-team-performance-366ae00ec054?source=friends_link&sk=db40725f4d5a6c2040e7ea8449ce0d31"),
+            "✴",
+            tags$a(shiny::icon("github"), "Github", href="https://github.com/SigurdJanson/CommunicationOverload")
+          )
+        ),
         card(
           FormatBib("Brooks, F. P.", "The Mythical Man Month", 1995, "Addison-Wesley"),
           card_footer(
@@ -156,8 +162,8 @@ ui <- fluidPage(
         ),
         col_widths = breakpoints(
           sm = 12,
-          md = 6,
-          lg = 6
+          md = 4,
+          lg = 4
         )
       )
     ),
