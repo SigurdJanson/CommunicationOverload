@@ -59,7 +59,7 @@ ui <- fluidPage(
   theme = bs_add_variables(
     bs_theme(bootswatch = "superhero", fg = .FGCol, bg = .BGCol,
                    font_scale = NULL, `enable-rounded` = FALSE, primary = .PrimaryCol,
-                   base_font = bslib::font_google("Inter")),
+                   base_font = bslib::font_google("Inter", local = FALSE)),
     # cards should be less conspicuous
     `card-bg` = "rgba(243, 251, 249, .02)", `card-cap-bg` = "rgba(243, 251, 249, .02)",
     .where = "declarations"),
