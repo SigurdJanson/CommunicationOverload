@@ -1,14 +1,15 @@
 The Surprising Math of Team Performance
 ================
-2024-11-13
+2024-11-14
 
 <!-- README.md is generated from README.Rmd. Please edit that file. -->
 
 Communication is arguably the most cohesive force within a team. By
 exchanging information, team members build relationships, establish
-roles, and achieve goals. Yet, communication can also have unintended
-negative effects, sometimes reducing team performance. This can result
-from issues like…
+roles, and achieve goals. It is vital for and closely linked with
+productivity (Dutta et al., 2021). Yet, communication can also have
+unintended negative effects, sometimes even reducing team performance.
+This can result from issues like…
 
 - Coordination issues, such as:
   - Challenges in building quality relationships
@@ -87,86 +88,6 @@ the topic:
 
 > There is no linear relationship between team size and output.
 
-  unless you follow a sophisticated scientific approach.
-
-In essence, **the link between team communication and performance seems
-to be stronger when you focus on the quality, rather than the quantity
-of communication**. Yet, it is still essential that quantity does not
-necessarily improve performance and that every change disrupts an
-effective systems causing at least temporary performance losses and
-maybe also a long-term decrease of cost-benefit ratio.
-
-Furthermore, you can use the assumptions behind Brooks Law and convert
-them into a tool. That is what the next section is about.
-
-## Making tools out of flaws or How productive is my team?
-
-Would it not be fantastic to have a formula for that? Unfortunately, we
-do not. The relationships are convoluted. The law is based on several
-limiting assumptions:
-
-1.  Time is only one factor for productivity. An important one, for
-    sure. But there are other factors, as well. Such factors are clarity
-    of roles, work speed, experience of team members, degree of
-    specialisation in the team, cultural diversity, type of task, … the
-    list goes on.
-
-2.  Also noteworthy is the fact that team performance must not only be
-    understood in terms of output volume. Quality is essential, too.
-
-3.  In teams, there is necessary unproductive time and then there is
-    wasted time.
-
-    1.  Teams need to maintain internal and external social
-        relationships, rules and routines. If this is neglected, it can
-        have a negative impact on productivity. The best example is
-        retrospective meetings in Scrum. Their purpose is to identify
-        obstacles, eliminate time wasters and misunderstandings and
-        ensure quality standards. This time is unproductive in a sense
-        that it does not directly contribute to the output, but if we
-        ignore this, team performance will suffer.
-    2.  Additionally, there is wasted time. Inviting someone to a
-        meeting to which they cannot contribute. The quest to exceed
-        necessary quality standards, striving for a more elegant
-        solution that does not help the business. Department meetings
-        filled with information employees cannot relate to. These are
-        common examples. Wasted time can be eliminated. You can find the
-        most obvious cases of wasted time by simply asking around.
-
-4.  As outlined above, some unproductive time is required to boost
-    productivity in the remaining time. Do not remove everything that
-    does not directly support productivity. A team needs to maintain
-    itself.
-
-5.  The law reduces team dynamics to pairwise relationships. If there
-    was a problem, then Tom talks to Deborah, Deborah talks to Maria,
-    and Maria talks to Tom. This way we have three conversations, each
-    of them takes - let us say - 10 minutes. But what if the three come
-    together and talk together? The threewise conversation may take
-    longer then a pairwise one but it should be briefer than 30 minutes.
-
-It depends on many factors
-
-- Self-organising teams may need more time.
-- Let us not forget that it changes over time. A newly assembled team
-  needs extra time. And every time the team setup changes, the team may
-  need to renegotiate some rules. (if only for a few weeks)
-- Meeting lateness alone can have a considerable impact. In the study by
-  Rogelberg et al. (2013) 1/3 of the meetings did not start at the
-  appointed time. Apart from numerous side effects, that can be a
-  considerable loss of time.
-
-Here are a few pointers:
-
-- In one study, Elsayed‐Elkhouly, Lazarus, and Forsythe (1997) found
-  that executives spend 30% of their time in meetings and 35% of it can
-  be considered wasted. That makes around 10% of wasted time.
-- In a scrum process the official recommendations for scrum meetings sum
-  up to a percentage between 12.5% and 22.5% (incl. refinement meetings)
-  (Overeem 2018; Schwaber and Sutherland 2020). In my opinion, the real
-  percentage is most likely lower, because to a degree these meetings
-  serve productive purposes, as well, especially refinement and planning
-  meetings.
 Team performance does not simply grow with each new member added. In
 fact, there may be a tipping point where adding another member even
 decreases overall performance.
@@ -181,6 +102,133 @@ convoluted. However, by examining team dynamics closely, we can draw
 valuable insights for decision-making and identify best practices in
 team management. Continue reading.
 
+## How Productive Is My Team?
+
+Team dynamics vary widely, so the simulation above is designed to
+illustrate principles rather than to make precise predictions. Team
+performance is influenced by many factors beyond size, and it’s
+essential to consider not only the volume of output but also its
+quality.
+
+**Beyond time**. Time is a key productivity factor but far from the only
+one. Other critical factors include work speed, trust among team members
+(De Jong et al., 2016), clear role definitions, diversity (Haas &
+Mortensen, 2016), task type and dependencies (Littlepage, 1991), degree
+of specialization of members, or their experience.
+
+**Unproductive ≠ wasted time**. In any team, not all unproductive time
+is wasted time.
+
+1.  Teams need time to establish and maintain social connections,
+    routines, and ground rules, which indirectly support productivity.
+    For instance, Scrum retrospective meetings aim to address obstacles,
+    improve quality, and eliminate inefficiencies. While not directly
+    contributing to output, this “unproductive” time is necessary for
+    long-term performance; neglecting it risks stagnation or decline.
+
+2.  Then there is wasted time—avoidable and unhelpful. Examples include
+    inviting team members to irrelevant meetings, over-engineering
+    solutions, or holding lengthy department updates with little
+    relevance to attendees. Simple steps can reduce wasted time, like
+    addressing meeting lateness, which was found to affect a third of
+    meetings in a study by Rogelberg et al. (2013). Identifying wasted
+    time can be as easy as gathering input from team members, as even
+    small changes can significantly improve efficiency.
+
+**Recovery speed**. Teams benefit immensely from a strong recovery
+capacity after mistakes. Quick error identification and resolution are
+essential; the longer a mistake goes unaddressed, the greater the
+negative impact on productivity.
+
+**N-wise**. Brooks’ Law simplifies team dynamics as pairs, but in
+practice, team communication can include multiple members. For instance,
+Tom, Deborah, and Maria could resolve an issue in a single group
+conversation rather than through a series of pairwise exchanges. While
+group discussions might take longer than one-on-one chats, they’re often
+faster overall, especially when decisions are needed. Knowing when to
+use pairwise versus group discussions is critical to avoiding
+“ping-pong” communication loops and keeping decision-making efficient.
+In my experience most people know intuitively how to choose.
+
+**Quality**. A quantitative perspective alone doesn’t capture the
+quality of communication within a team. Effective communication, as
+defined by Marlow et al. (2018), involves the timely sharing of critical
+and relevant information, ensuring that every team member is informed
+and empowered to make decisions. High-quality communication is essential
+to performance; quantity alone is ineffective without quality (Marlow et
+al., 2018; Mueller, 2012). While numbers matter, they only add value if
+quality is prioritized.
+
+**Change**. Changes in team composition can disrupt performance, often
+causing temporary setbacks or, in some cases, long-term decreases in
+efficiency. Even short absences require other team members to adapt,
+impacting productivity until the team adjusts.
+
+Despite these limitations, Brooks’ Law provides valuable insights. In
+fact, taken together, law plus limitations can be applied as a practical
+tool for improving team performance. The next section outlines some
+principles that can help do just that.
+
+## Turning Limitations into a Tool
+
+Combining insights from Haas & Mortensen (2016) with the findings
+discussed here, we can use a set of practical questions to help teams
+assess their potential and identify areas for improvement. The following
+points provide a foundation for building and evaluating team
+effectiveness.
+
+**Clear and compelling direction**
+
+- Does the team have a shared goal that is well-defined and motivating?
+  Is it challenging enough to inspire without being out of reach?
+- Is the goal significant for others outside the team?
+
+**Strong structure**
+
+- Does the team bring a diverse, complementary skill set?
+- Is the team kept as small as possible to optimize communication and
+  efficiency?
+- Are team members individually accountable for completing their tasks?
+- Are clear norms in place to guide expected behaviour and
+  accountability?
+
+**Supportive environment**
+
+- Are essential resources, information, and training readily available?
+- Is there dedicated time and space for team-wide information sharing?
+- Is there a separate time for “going meta,” allowing members to reflect
+  on team processes and identify improvements?
+- Are meaningful rewards or recognition provided for team achievements?
+- Does the team invest time to integrate new members, aligning them with
+  the team’s goals, roles, and processes?
+
+**Unified mindset**
+
+- Do team members feel a strong, shared identity and sense of belonging?
+- Is information easily and openly shared within the team?
+- Is there mutual understanding and respect for each member’s unique
+  limitations and circumstances?
+
+## Summary
+
+Achieving strong team performance is not simply about adding members or
+increasing communication frequency; it requires a thoughtful balance of
+team structure and meaningful communication practices. While this
+discussion has focused on core aspects of team dynamics, other critical
+factors also shape performance. In recent years, psychological safety
+has gained attention as it emphasizes the need for open and honest
+communication—encouraging team members to share without withholding
+vital information (e.g. O’Donovan & McAuliffe, 2020). This foundation of
+trust is essential for resilience, equipping teams with the flexibility
+to adapt to shifting tasks, project phases, and team dynamics. These
+topics deserve in-depth exploration on their own.
+
+Tools and simulations, like those featured in this article, offer
+valuable insights, yet successful teams are ultimately built on
+intentional, people-centered practices. By cultivating these principles,
+teams can effectively manage the complexities of collaboration,
+transforming challenges into opportunities for sustained, high-quality
+performance.
 
 ## Further reading
 
@@ -192,6 +240,24 @@ line-spacing="2">
 Brooks, F. P. (1995).
 *The mythical man-month: Essays on software engineering*
 (Anniversary ed.). Addison-Wesley.
+
+</div>
+
+<div id="ref-DeJong2016" class="csl-entry">
+
+De Jong, B. A., Dirks, K. T., & Gillespie, N. (2016). Trust and team
+performance: A meta-analysis of main effects, moderators, and
+covariates. *Journal of Applied Psychology*, *101*(8), 1134–1150.
+<https://doi.org/10.1037/apl0000110>
+
+</div>
+
+<div id="ref-Dutta2021" class="csl-entry">
+
+Dutta, A., Steiner, E., Proulx, J., Berisha, V., Bliss, D. W., Poole,
+S., & Corman, S. (2021). Analyzing the relationship between productivity
+and human communication in an organizational setting. *PLOS ONE*,
+*16*(7), e0250301. <https://doi.org/10.1371/journal.pone.0250301>
 
 </div>
 
@@ -219,6 +285,15 @@ article. *Journal of Personality and Social Psychology*, *50*, 936–941.
 
 </div>
 
+<div id="ref-Littlepage1991" class="csl-entry">
+
+Littlepage, G. E. (1991). Effects of group size and task characteristics
+on group performance: A test of steiner’s model. *Personality and Social
+Psychology Bulletin*, *17*(4), 449–456.
+<https://doi.org/10.1177/0146167291174014>
+
+</div>
+
 <div id="ref-Marlow2018" class="csl-entry">
 
 Marlow, S. L., Lacerenza, C. N., Paoletti, J., Burke, C. S., & Salas, E.
@@ -234,6 +309,15 @@ Behavior and Human Decision Processes*, *144*, 145–170.
 Mueller, J. S. (2012). Why individuals in larger teams perform worse.
 *Organizational Behavior and Human Decision Processes*, *117*(1),
 111–124. <https://doi.org/10.1016/j.obhdp.2011.08.004>
+
+</div>
+
+<div id="ref-ODonovan2020" class="csl-entry">
+
+O’Donovan, R., & McAuliffe, E. (2020). A systematic review exploring the
+content and outcomes of interventions to improve psychological safety,
+speaking up and voice behaviour. *BMC Health Services Research*,
+*20*(1). <https://doi.org/10.1186/s12913-020-4931-2>
 
 </div>
 
@@ -281,3 +365,10 @@ Schwaber, K., & Sutherland, J. (2020). *The scrum guide* \[Guideline\].
 </div>
 
 </div>
+
+<!--
+Quality over quantity
+&#10;5.  As outlined above, some unproductive time is required to boost productivity in the remaining time. Do not remove everything that does not directly support productivity. A team needs to maintain itself.
+&#10;Self-organising teams may need more time. In self-organisation some aspects that make the team are left to the team to work out by itself. That takes time. The idea is that self-organisation can lead to more effective team *in the long run*. Such teams are not necessarily more effective in the short run and not necessarily more efficient. At least Scrum tends to prioritise quality over quantity. [###LIT###TODO]
+&#10;The most important pointer that I can give you is your team colleagues' satisfaction on the job. If you want to know about inefficiencies, just talk to them. 
+&#10;-->
