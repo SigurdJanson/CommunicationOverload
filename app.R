@@ -217,10 +217,13 @@ server <- function(input, output) {
   output$relationshipsPlot <- renderPlot({
     dt <- data.frame(Members = seq.int(.MemberRange[1], .MemberRange[2L]),
                      Relations = Relationships)
+    CurrentMembers <- input$inpTeamMembers
+    CurrentRelations <- Relationships[which(dt$Members == CurrentMembers)]
 
     ggplot(dt, aes(x = Members, y = Relationships, label = format(Relationships))) +
       geom_line() + geom_point() +
       geom_vline(xintercept = input$inpTeamMembers, color = .PrimaryCol) +
+      geom_hline(yintercept = CurrentRelations, color = .PrimaryCol) +
       geom_hline(yintercept = 0, color = .FGCol) +
       labs(x = "Team Members", y = "Relationships") +
       theme(axis.text.y   = element_text(size=12),
@@ -268,7 +271,7 @@ server <- function(input, output) {
     dt <- data.frame(Members = MemberCount, ProductiveTime = ProductiveTime*100)
     ggplot(dt, aes(x = Members, y = ProductiveTime, label = format(ProductiveTime))) +
       geom_line() + geom_point() +
-      geom_vline(linewidth = 1, xintercept = input$inpTeamMembers, color = .PrimaryCol) +
+      geom_vline(linewidth = 1, xintercept = CurrentMembers, color = .PrimaryCol) +
       geom_hline(yintercept = 0, color = .FGCol) +
       geom_label(data = dt[CurrentIndex,],
                  aes(label = sprintf("%3.0f %s", ProductiveTime, Direction), fontface = "bold", size = 20),
